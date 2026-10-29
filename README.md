@@ -13,9 +13,12 @@ Calculadora com **5 memórias independentes** (M1 a M5), em Kotlin, sem dependê
 - **MS** guarda o valor atual na memória ativa (substitui).
 - **M+** soma o valor atual à memória ativa; **M−** subtrai.
 - **MR** insere o valor da memória ativa na expressão.
-- **MC** limpa a memória ativa. **Segure MC** para limpar todas.
+- **MC** limpa a memória ativa.
+- **MCA** (botão vermelho) apaga **todas** as 5 memórias, após uma confirmação. Segurar o MC faz o mesmo.
 - Segurar um botão **M1…M5** seleciona e limpa aquela memória.
 - As memórias ficam salvas mesmo fechando o app.
+
+**x²** eleva ao quadrado e **√** tira a raiz quadrada do valor mostrado no display.
 
 O "valor atual" é o resultado da expressão na tela (ex.: com `12+8` digitado, MS guarda 20).
 

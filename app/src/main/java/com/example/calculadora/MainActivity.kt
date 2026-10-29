@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         private val COR_MEM = Color.parseColor("#1D2230")
         private val COR_MEM_SEL = Color.parseColor("#3D5AFE")
         private val COR_MEM_OP = Color.parseColor("#2A3042")
+        private val COR_MEM_PERIGO = Color.parseColor("#4A2430")
     }
 
     // Cinco memórias independentes. null = vazia.
@@ -110,10 +112,17 @@ class MainActivity : AppCompatActivity() {
             "MR" to { recuperarMemoria() },
             "M+" to { somarMemoria(1) },
             "M−" to { somarMemoria(-1) },
-            "MS" to { guardarMemoria() }
+            "MS" to { guardarMemoria() },
+            "MCA" to { confirmarLimparTodas() }
         ).forEach { (rotulo, acao) ->
-            val b = botao(rotulo, COR_MEM_OP, Color.parseColor("#B7C0FF"), 15f) { acao() }
-            if (rotulo == "MC") b.setOnLongClickListener { limparTodas(); true }
+            val perigo = rotulo == "MCA"
+            val b = botao(
+                rotulo,
+                if (perigo) COR_MEM_PERIGO else COR_MEM_OP,
+                if (perigo) Color.parseColor("#FFB4B4") else Color.parseColor("#B7C0FF"),
+                14f
+            ) { acao() }
+            if (rotulo == "MC") b.setOnLongClickListener { confirmarLimparTodas(); true }
             linhaOps.addView(b, peso())
         }
         raiz.addView(linhaOps, linhaParams(dp(44)))
@@ -132,9 +141,12 @@ class MainActivity : AppCompatActivity() {
             for (t in l) row.addView(botaoTeclado(t), peso())
             teclado.addView(row, LinearLayout.LayoutParams(-1, 0, 1f))
         }
-        val rowIgual = linha(altura = 0)
-        rowIgual.addView(botaoTeclado("="), peso())
-        teclado.addView(rowIgual, LinearLayout.LayoutParams(-1, 0, 1f))
+        // Última linha: x², √ e "=" (que ocupa metade da largura)
+        val rowFinal = linha(altura = 0)
+        rowFinal.addView(botaoTeclado("x²"), peso())
+        rowFinal.addView(botaoTeclado("√"), peso())
+        rowFinal.addView(botaoTeclado("="), peso().apply { weight = 2f })
+        teclado.addView(rowFinal, LinearLayout.LayoutParams(-1, 0, 1f))
 
         raiz.addView(teclado, LinearLayout.LayoutParams(-1, 0, 4.2f).apply { topMargin = dp(6) })
         return raiz
@@ -195,6 +207,8 @@ class MainActivity : AppCompatActivity() {
             t == "(" -> abreParenteses()
             t == ")" -> fechaParenteses()
             t == "%" -> porcento()
+            t == "x²" -> quadrado()
+            t == "√" -> raiz()
         }
         atualizarDisplay()
     }
@@ -255,6 +269,25 @@ class MainActivity : AppCompatActivity() {
         acabouDeCalcular = true
     }
 
+    /** Eleva ao quadrado o valor mostrado no display. */
+    private fun quadrado() {
+        val v = valorAtual() ?: return
+        aplicarResultado(v * v)
+    }
+
+    /** Raiz quadrada do valor mostrado no display. */
+    private fun raiz() {
+        val v = valorAtual() ?: return
+        if (v < 0) { aviso("Raiz de número negativo"); return }
+        aplicarResultado(Math.sqrt(v))
+    }
+
+    private fun aplicarResultado(r: Double) {
+        if (r.isNaN() || r.isInfinite()) { aviso("Resultado muito grande"); return }
+        expr = Evaluator.formatar(r).replace('-', '−')
+        acabouDeCalcular = true
+    }
+
     // ------------------------------------------------------ Valor / display
 
     /** Fecha parênteses pendentes e remove operadores soltos no fim. */
@@ -303,10 +336,20 @@ class MainActivity : AppCompatActivity() {
         salvarMemorias(); atualizarMemorias()
     }
 
+    private fun confirmarLimparTodas() {
+        if (memorias.all { it == null }) { aviso("As memórias já estão vazias"); return }
+        AlertDialog.Builder(this)
+            .setTitle("Apagar todas as memórias?")
+            .setMessage("M1 a M5 serão esvaziadas. Isso não pode ser desfeito.")
+            .setPositiveButton("Apagar tudo") { _, _ -> limparTodas() }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
     private fun limparTodas() {
         memorias.fill(null)
         salvarMemorias(); atualizarMemorias()
-        aviso("Todas as memórias foram limpas")
+        aviso("Todas as memórias foram apagadas")
     }
 
     private fun guardarMemoria() {
