@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#12141A" android:pathData="M0,0 H108 V108 H0 Z" />
+    <path android:fillColor="#E8EAF0" android:pathData="M38,27 H70 Q75,27 75,32 V76 Q75,81 70,81 H38 Q33,81 33,76 V32 Q33,27 38,27 Z" />
+    <path android:fillColor="#2EAD6B" android:pathData="M39.5,31 H68.5 Q71,31 71,33.5 V41.5 Q71,44 68.5,44 H39.5 Q37,44 37,41.5 V33.5 Q37,31 39.5,31 Z" />
+    <path android:fillColor="#12141A" android:pathData="M41,38 H49 V40 H41 Z" />
+    <path android:fillColor="#3A3F4F" android:pathData="M39,48 H44.33 Q46.33,48 46.33,50 V54 Q46.33,56 44.33,56 H39 Q37,56 37,54 V50 Q37,48 39,48 Z" />
+    <path android:fillColor="#3A3F4F" android:pathData="M51.33,48 H56.66 Q58.66,48 58.66,50 V54 Q58.66,56 56.66,56 H51.33 Q49.33,56 49.33,54 V50 Q49.33,48 51.33,48 Z" />
+    <path android:fillColor="#F29F05" android:pathData="M63.67,48 H69.0 Q71.0,48 71.0,50 V54 Q71.0,56 69.0,56 H63.67 Q61.67,56 61.67,54 V50 Q61.67,48 63.67,48 Z" />
+    <path android:fillColor="#3A3F4F" android:pathData="M39,59 H44.33 Q46.33,59 46.33,61 V65 Q46.33,67 44.33,67 H39 Q37,67 37,65 V61 Q37,59 39,59 Z" />
+    <path android:fillColor="#3A3F4F" android:pathData="M51.33,59 H56.66 Q58.66,59 58.66,61 V65 Q58.66,67 56.66,67 H51.33 Q49.33,67 49.33,65 V61 Q49.33,59 51.33,59 Z" />
+    <path android:fillColor="#F29F05" android:pathData="M63.67,59 H69.0 Q71.0,59 71.0,61 V65 Q71.0,67 69.0,67 H63.67 Q61.67,67 61.67,65 V61 Q61.67,59 63.67,59 Z" />
+    <path android:fillColor="#3A3F4F" android:pathData="M39,70 H44.33 Q46.33,70 46.33,72 V76 Q46.33,78 44.33,78 H39 Q37,78 37,76 V72 Q37,70 39,70 Z" />
+    <path android:fillColor="#2EAD6B" android:pathData="M51.33,70 H56.66 Q58.66,70 58.66,72 V76 Q58.66,78 56.66,78 H51.33 Q49.33,78 49.33,76 V72 Q49.33,70 51.33,70 Z" />
+    <path android:fillColor="#F29F05" android:pathData="M63.67,70 H69.0 Q71.0,70 71.0,72 V76 Q71.0,78 69.0,78 H63.67 Q61.67,78 61.67,76 V72 Q61.67,70 63.67,70 Z" />
+</vector>
